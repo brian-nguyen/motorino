@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Camera extends Component {
-  enableCamera = function() {
+  enableCamera = () => {
     var video = document.getElementById('video');
 
     // Get access to the camera
@@ -13,33 +13,29 @@ class Camera extends Component {
     }
   }
 
-  takePicture = function() {
+  takePicture = () => {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var video = document.getElementById('video');
 
     // Take the picture and convert canvas to image
     context.drawImage(video, 0, 0, 640, 480);
-    var image = convertCanvasToImage(canvas);
+
+    // Get OCR data
+    canvas.toBlob((blob) => this.props.getImageInformation(blob));
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="Camera">
-        <video id="video" width="640" height="480" autoplay></video>
+        <video id="video" width="640" height="480" autoPlay></video>
         <button id="enable" onClick={this.enableCamera}>Enable OCR</button>
         <button id="snap" onClick={this.takePicture}>Take Picture</button>
         <canvas id="canvas" width="640" height="480"></canvas>
       </div>
     );
   }
-}
-
-// Converts canvas to an image
-function convertCanvasToImage(canvas) {
-  var image = new Image();
-  image.src = canvas.toDataURL("image/png");
-  return image;
 }
 
 export default Camera;
