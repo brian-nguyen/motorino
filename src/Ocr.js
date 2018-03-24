@@ -10,7 +10,7 @@ class Ocr extends Component {
     };
   }
 
-  handleChangeImage = async (evt) => {
+  getImageInformation = async (evt) => {
     var reader = new FileReader();
     var file = evt.target.files[0];
     reader.readAsDataURL(file);
@@ -40,7 +40,7 @@ class Ocr extends Component {
         <input ref="file" type="file" name="file" 
                               className="upload-file" 
                               id="file"
-                              onChange={this.handleChangeImage}
+                              onChange={this.getImageInformation}
                               encType="multipart/form-data" 
                               required/>
       </div>
