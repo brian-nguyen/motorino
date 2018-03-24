@@ -25,26 +25,55 @@ class App extends Component {
     const res = await response.json();
     const documents = res.searchApi.documents;
 
-    return this.filter(documents);
+    const filteredDocs = this.filterSku(documents);
+    return filteredDocs;
   }
 
-  filter(documents) {
+  filterSku(documents) {
     const filterDocs = documents.filter((document) => {
-      const availability = document.summary.availability;
+      // const availability = document.summary.availability;
       const nameString = document.summary.names.short.trim().toLowerCase();
       const reg = nameString.match(/refurbished/g);
+      // let shipAvailability = availability.ship && availability.ship.available;
+      // let pickupAvailability = availability.pickup && availability.pickup.available;
+      // (pickupAvailability || shipAvailability) &&
+      return reg === null;
+    });
+    return filterDocs;
+  }
+
+  filterUnavailable(documents) {
+    const filterDocs = documents.filter((document) => {
+      const availability = document.summary.availability;
       let shipAvailability = availability.ship && availability.ship.available;
       let pickupAvailability = availability.pickup && availability.pickup.available;
-      return (pickupAvailability || shipAvailability) && reg === null;
+      return (pickupAvailability || shipAvailability);
     });
     return filterDocs;
   }
 
   onSubmit = async (formData) => {
-    const results = await this.getProductInfo(formData.productName, formData.price);
+    let showValidation = false;
+    let error = "";
+    const prods = await this.getProductInfo(formData.productName, formData.price);
+    if (prods.length === 0) {
+      // best buy doesn't sell this item
+      showValidation = true;
+      error = "BESTBUY doesn't have this item";
+    } else {
+      const availableProds = this.filterUnavailable(prods);
+      if (availableProds.length === 0) {
+        // product is not in stock
+        showValidation = true;
+        error = "Item is not in stock at BESTBUY";
+      }
+    }
     this.setState({
       showForm: false,
-      products: results,
+      products: prods,
+      showValidation: showValidation,
+      error: error,
+      valid: false,
      });
   }
 
@@ -65,8 +94,8 @@ class App extends Component {
           </div>
         </div>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
-        {!this.state.showForm && <ProductList products={this.state.products} />}
-
+        {!this.state.showForm && !this.state.showValidation && <ProductList products={this.state.products} />}
+        {!this.state.showForm && this.state.showValidation && <ProductValidator success={this.state.valid} failureType={this.state.error}/>}
       </div>
     );
   }
