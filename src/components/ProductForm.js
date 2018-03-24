@@ -11,14 +11,13 @@ export default class ProductForm extends React.Component {
     };
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = () => {
     console.log(this.state);
   }
 
   render() {
     return (
-      <form className="m-3" onSubmit={this.handleSubmit}>
+      <form className="m-3" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           Product Name
           <input value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter email" />
@@ -36,7 +35,7 @@ export default class ProductForm extends React.Component {
             <option>Staples</option>
           </select>
         </div>
-        <button onClick={() => console.log(this.state)} type="button" className="btn btn-outline-dark">Submit</button>
+        <button onClick={this.handleSubmit} type="button" className="btn btn-outline-dark">Submit</button>
       </form>
     );
   }
