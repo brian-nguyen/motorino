@@ -37,7 +37,11 @@ export function checkForCompetitor(company, competitors, bb_price) {
 
   const price = parseFloat(match["Price"].replace("$",""));
   if (bb_price > price) {
-    return { success: true, price: (price - (bb_price - price) * 0.1) };
+    return {
+      success: true,
+      price: (price - (bb_price - price) * 0.1),
+      message: `You saved ${(bb_price - price) * 0.1}!`
+    };
   }
 
   return { success: false, error: 'Prices are the same or we already have the best price' };
