@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import _ from 'lodash'
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
@@ -14,7 +14,7 @@ var SKU = 10248353; // used for testing
 class App extends Component {
   constructor(props) {
     super(props);
-    this.sortByDate(SKU);
+    this.sortByCompany(SKU);
     this.state = {
       showForm: true,
       products: [],
@@ -45,13 +45,13 @@ class App extends Component {
     return searched;
   }
 
-  // sortByCompany(sku){
-  //   let mostrecent = [];
-  //   let sorted = this.sortByDate(sku);
-  //   for(var key in sorted){
-
-  //   }
-  // }
+  sortByCompany(sku){
+    let sorted = this.sortByDate(sku);
+    console.log(sorted);
+    let mostrecent = _.uniqBy(sorted,(x)=>{return x["Retailer"]});
+    console.log(mostrecent);
+    return mostrecent;
+  }
 
   getProductInfo = async (searchString) => {
     const encodedSearchString = encodeURIComponent(searchString.trim())
