@@ -7,13 +7,12 @@ export default class ProductForm extends React.Component {
     this.state = {
       email: '',
       price: '',
-      competitor: '',
+      competitor: 'Amazon',
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  handleSubmit = (e) => {
+    e.preventDefault();
     console.log(this.state);
   }
 
@@ -22,11 +21,11 @@ export default class ProductForm extends React.Component {
       <form className="m-3" onSubmit={this.handleSubmit}>
         <div className="form-group">
           Product Name
-          <input value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} id="email" type="email" className="form-control" placeholder="Enter email" />
+          <input value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter email" />
         </div>
         <div className="form-group">
           Price
-          <input value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} id="price" type="email" className="form-control" placeholder="Enter email" />
+          <input value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} id="price" type="text" className="form-control" placeholder="Enter email" />
         </div>
         <div className="form-group">
           Competitor
@@ -37,6 +36,7 @@ export default class ProductForm extends React.Component {
             <option>Staples</option>
           </select>
         </div>
+        <button onClick={() => console.log(this.state)} type="button" className="btn btn-outline-dark">Submit</button>
       </form>
     );
   }
