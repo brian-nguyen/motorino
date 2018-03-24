@@ -14,11 +14,6 @@ export default class ProductForm extends React.Component {
   render() {
     return (
       <div className="d-flex flex-column">
-        <div className="m-3 card w-50" style={{ alignSelf: 'center' }}>
-          <div className="card-body">
-            <p className="card-text">Some box for image taking</p>
-          </div>
-        </div>
         <div className="card w-50" style={{ alignSelf: 'center' }}>
           <form className="m-3" onSubmit={(e) => e.preventDefault()}>
             <div className="form-group">

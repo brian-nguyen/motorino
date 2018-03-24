@@ -89,7 +89,7 @@ class App extends Component {
         </div>
         <div className="m-3 card">
           <div className="card-body">
-            <p className="card-text">Some box for image taking</p>
+            <p className="card-text">Upload photo of your product</p>
             <Ocr/>
           </div>
         </div>
