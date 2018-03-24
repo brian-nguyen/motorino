@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {getProductInfo} from './product-resolver';
+
+import { getProductInfo } from './product-resolver';
 
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
@@ -14,8 +15,31 @@ class App extends Component {
     };
   }
 
-  onSubmit = (formData) => {
-    console.log(formData);
+  getProductInfo = async (searchString) => {
+    const encodedSearchString = encodeURIComponent(searchString.trim())
+    
+    const url = `https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=${encodedSearchString}`;
+    const response = await fetch(url);
+    const res = await response.json();
+    
+    const documents = res.searchApi.documents;
+
+    return this.filterOutOfStock(documents);
+  }
+
+  filterOutOfStock(documents) {
+    const filterDocs = documents.filter((document) => {
+      const availability = document.summary.availability;
+      let shipAvailability = availability.ship && availability.ship.available;
+      let pickupAvailability = availability.pickup && availability.pickup.available;
+      return pickupAvailability || shipAvailability;
+    });
+    return filterDocs;
+  }
+
+  onSubmit = async (formData) => {
+    const results = await this.getProductInfo(formData.productName);
+    console.log(results);
     this.setState({ showForm: false });
   }
 

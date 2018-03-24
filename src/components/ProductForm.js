@@ -5,7 +5,7 @@ export default class ProductForm extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      email: '',
+      productName: '',
       price: '',
       competitor: 'Amazon',
     };
