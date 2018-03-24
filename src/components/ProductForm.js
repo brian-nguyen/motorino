@@ -2,6 +2,7 @@ import React from 'react';
 import { COMPANY_NAMES } from '../data'
 
 import Ocr from './Ocr';
+import Url from './Url';
 
 export default class ProductForm extends React.Component {
   constructor(props) {
@@ -14,6 +15,14 @@ export default class ProductForm extends React.Component {
     };
   }
 
+  fillForm = (vals) => {
+    this.setState({
+      productName: vals.productName,
+      price: vals.price,
+      competitor: vals.competitor
+    })
+  }
+
   render() {
     return (
       <div className="d-flex flex-column">
@@ -22,8 +31,9 @@ export default class ProductForm extends React.Component {
             <span aria-hidden="true">&times;</span>
           </button>
           <div className="card-body">
-            <div className="alert alert-success" role="alert">Provide proof by either uploading a photo, taking a photo, or providng a link to the product page</div>
+            <div className="alert alert-success" role="alert">Provide proof by either uploading a photo, taking a photo, or providing a link to the product page</div>
             <Ocr />
+            <Url onSubmit={(vals) => this.fillForm(vals)}/>
           </div>
         </div>
         <div className="card w-50" style={{ alignSelf: 'center' }}>
