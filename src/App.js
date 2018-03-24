@@ -6,18 +6,15 @@ import './App.css';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 import ProductValidator from './components/ProductValidator';
-import Camera from './components/Camera';
-import Ocr from './components/Ocr';
 import { sortByCompany } from './data';
-
-var SKU = 10243865;
-var comp = "Best Buy Canada";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showForm: true,
+      showValidation: false,
+      error: '',
       products: [],
     };
   }
@@ -57,26 +54,29 @@ class App extends Component {
   }
 
   onSubmit = async (formData) => {
-    let showValidation = false;
-    let error = "";
+    let availableProds = []
     const prods = await this.getProductInfo(formData.productName, formData.price);
     if (prods.length === 0) {
       // best buy doesn't sell this item
-      showValidation = true;
-      error = "BESTBUY doesn't have this item";
+      this.setState({
+        showValidation: true,
+        error: "BESTBUY doesn't have this item",
+      });
     } else {
-      const availableProds = this.filterUnavailable(prods);
+      availableProds = this.filterUnavailable(prods);
       if (availableProds.length === 0) {
         // product is not in stock
-        showValidation = true;
-        error = "Item is not in stock at BESTBUY";
+        this.setState({
+          showValidation: true,
+          error: "Item is not in stock at BESTBUY",
+        });
       }
     }
+
     this.setState({
       showForm: false,
-      products: prods,
-      formData,
-     });
+      products: availableProds,
+    });
   }
 
   render() {
@@ -89,14 +89,9 @@ class App extends Component {
         <div className="alert alert-primary" role="alert">
           Input an image
         </div>
-        <div className="m-3 card">
-          <div className="card-body">
-            <p className="card-text">Upload photo of your product</p>
-            <Ocr/>
-          </div>
-        </div>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
         {!this.state.showForm && <ProductList products={this.state.products} formData={this.state.formData} />}
+        {!this.state.showForm && this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
       </div>
     );
   }

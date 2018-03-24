@@ -10,7 +10,7 @@ export default class Product extends React.Component {
     return (
       <div onClick={(e) => this.props.onClick(e, this.props.product)} className="card list-group-item-action m-2">
         <div style={s.container}>
-          <img src={imageUrl} className="img-thumbnail" style={s.img} alt="Product Image" />
+          <img src={imageUrl} className="img-thumbnail" style={s.img} alt="Product" />
           <div className="card-text">
             <h5 className="m-2">{name}</h5>
             <p className="card-subtitle text-muted m-3">{description}</p>

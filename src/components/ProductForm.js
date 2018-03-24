@@ -1,5 +1,8 @@
 import React from 'react';
-import {COMPANY_NAMES} from '../data'
+import { COMPANY_NAMES } from '../data'
+
+import Ocr from './Ocr';
+
 export default class ProductForm extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +17,12 @@ export default class ProductForm extends React.Component {
   render() {
     return (
       <div className="d-flex flex-column">
+        <div className="m-3 card w-50" style={{ alignSelf: 'center' }}>
+          <div className="card-body">
+            <p className="card-text">Upload photo of your product</p>
+            <Ocr />
+          </div>
+        </div>
         <div className="card w-50" style={{ alignSelf: 'center' }}>
           <form className="m-3" onSubmit={(e) => e.preventDefault()}>
             <div className="form-group">
@@ -28,23 +37,8 @@ export default class ProductForm extends React.Component {
             <p className="text-left">Competitor</p>
               <select value={this.state.competitor} onChange={(e) => this.setState({ competitor: e.target.value })} className="form-control">
                 {
-                  COMPANY_NAMES.map( (e) => <option>{e}</option>)
+                  COMPANY_NAMES.map((e) => <option>{e}</option>)
                 }
-                {/* <option>COMPANY_NAMES</option>
-                <option>Bed, Bath, and Beyond</option>
-                <option>Best Buy Canada</option>              
-                <option>Canadian Tire</option>
-                <option>Costco Canada</option>
-                <option>London Drugs</option>
-                <option>Lusso Baby</option>
-                <option>Sears Canada</option>
-                <option>Shopca</option>
-                <option>Staples</option>
-                <option>The Bay</option>
-                <option>The Brick</option>
-                <option>Toys R Us Canada</option>
-                <option>Walmart Canada</option>
-                <option>Well Canada</option> */}
               </select>
             </div>
             <button onClick={() => this.props.onSubmit(this.state)} type="button" className="btn btn-outline-dark">Submit</button>
