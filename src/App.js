@@ -74,7 +74,7 @@ class App extends Component {
     }
     this.setState({
       showForm: false,
-      products: results,
+      products: prods,
       formData,
      });
   }
