@@ -8,14 +8,56 @@ import ProductList from './components/ProductList';
 import ProductValidator from './components/ProductValidator';
 import Camera from './components/Camera';
 import Ocr from './components/Ocr';
+import { sortByCompany } from './data';
+
+var SKU = 10243865;
+var comp = "Best Buy Canada";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    const results = sortByCompany(SKU);
+    console.log(results);
+    const match = results.find(e => e["Retailer"] == "Amazon");
+    console.log(match["Price"]);
+    const price = parseFloat(match["Price"].replace("$", ""));
+    console.log(price);
+    if (100.99 <= price) {
+      console.log('price match');
+    }
+
+
     this.state = {
       showForm: true,
       products: [],
     };
+  }
+
+  checkForCompetitor( company, competitors){
+      var found = competitors.find( (e) => {return e["Retailer"] == company});
+      if( found == undefined ){
+        return false;
+      }
+      return found["Price"];
+  }
+
+  removeDollar(field){
+    var temp =  parseFloat(field.replace("$",""));
+    console.log(temp);
+    return temp;
+
+  }
+
+  checkPrice( priceFlyer, priceComp){
+    console.log(priceFlyer);
+    if(parseFloat(priceFlyer) <= this.removeDollar(priceComp)){ //price matched
+      return this.priceReduction(priceComp, priceFlyer);
+    }
+    return false; //price not matched
+  }
+
+  priceReduction( orig, match){
+    return match - (orig-match)*0.1;
   }
 
   getProductInfo = async (searchString) => {
