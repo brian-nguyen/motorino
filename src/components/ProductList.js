@@ -8,6 +8,7 @@ export default class ProductList extends React.Component {
         {this.props.products.map((p, idx) => 
           <Product
             key={idx}
+            sku={p.summary.skuId}
             imageUrl={p.summary.media.primaryImage.url}
             name={p.summary.names.short}
             description={p.summary.descriptions.short}
