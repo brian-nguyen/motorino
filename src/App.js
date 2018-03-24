@@ -4,6 +4,7 @@ import './App.css';
 
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
+import ProductValidator from './components/ProductValidator';
 
 const bbdb = require('./bbdb.json');
 
@@ -72,9 +73,10 @@ class App extends Component {
             <p className="card-text">Some box for image taking</p>
           </div>
         </div>
-        
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
         {!this.state.showForm && <ProductList products={this.state.products} />}
+        <ProductValidator success={false} failureType="Invalid Price"/>
+
       </div>
     );
   }
