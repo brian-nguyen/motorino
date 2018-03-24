@@ -59,21 +59,26 @@ class App extends Component {
     const response = await fetch(url);
     const res = await response.json();
     const documents = res.searchApi.documents;
-    return this.filterOutOfStock(documents);
+
+    return this.filter(documents);
   }
 
-  filterOutOfStock(documents) {
+  filter(documents) {
     const filterDocs = documents.filter((document) => {
       const availability = document.summary.availability;
+      console.log(document.summary.names.short);
+      const nameString = document.summary.names.short.trim().toLowerCase();
+      const reg = nameString.match(/refurbished/g);
       let shipAvailability = availability.ship && availability.ship.available;
       let pickupAvailability = availability.pickup && availability.pickup.available;
-      return pickupAvailability || shipAvailability;
+      return (pickupAvailability || shipAvailability) && reg === null;
     });
     return filterDocs;
   }
 
   onSubmit = async (formData) => {
-    const results = await this.getProductInfo(formData.productName);
+    const results = await this.getProductInfo(formData.productName, formData.price);
+    console.log(results);
     this.setState({
       showForm: false,
       products: results,
