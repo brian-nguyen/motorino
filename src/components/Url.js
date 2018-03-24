@@ -21,7 +21,7 @@ class Url extends Component {
       return (
         <div className="Url d-flex flex-column align-items-center">
           <form>
-            URL: <input type="text" id="url"></input>
+            URL: <input type="text" id="url" size="50"></input>
             <input type="button" value="Submit" onClick={this.buttonClicked}/>
           </form>
         </div>
