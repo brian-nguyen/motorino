@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { getProductInfo } from './product-resolver';
-
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
@@ -12,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       showForm: true,
+      products: [],
     };
   }
 
@@ -39,8 +38,10 @@ class App extends Component {
 
   onSubmit = async (formData) => {
     const results = await this.getProductInfo(formData.productName);
-    console.log(results);
-    this.setState({ showForm: false });
+    this.setState({
+      showForm: false,
+      products: results,
+     });
   }
 
   render() {
@@ -61,7 +62,7 @@ class App extends Component {
         </div>
         
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
-        {!this.state.showForm && <ProductList />}
+        {!this.state.showForm && <ProductList products={this.state.products} />}
       </div>
     );
   }
