@@ -25,15 +25,10 @@ class App extends Component {
   
   getProductInfo = async (searchString) => {
     const encodedSearchString = encodeURIComponent(searchString.trim());
-    
     const url = `https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=${encodedSearchString}`;
-    console.log(url);
-    
     const response = await fetch(url);
     const res = await response.json();
-    
     const documents = res.searchApi.documents;
-
     return this.filterOutOfStock(documents);
   }
 
