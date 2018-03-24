@@ -13,14 +13,3 @@ export default class ProductValidator extends React.Component {
     );
   }
 }
-
-const s = {
-  listContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  element: {
-    
-  }
-};

@@ -37,10 +37,11 @@ export function checkForCompetitor(company, competitors, bb_price) {
 
   const price = parseFloat(match["Price"].replace("$",""));
   if (bb_price > price) {
+    const difference = bb_price - price;
     return {
       success: true,
-      price: (price - (bb_price - price) * 0.1),
-      message: `You saved ${(bb_price - price) * 0.1}!`
+      price: price - (difference * 0.1),
+      message: `You saved $${Math.floor((difference * 0.1) * 100) / 100}!`
     };
   }
 

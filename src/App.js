@@ -6,16 +6,19 @@ import './App.css';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 import ProductValidator from './components/ProductValidator';
+import Coupon from './components/Coupon';
 import { sortByCompany } from './data';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showCoupon: false,
       showForm: true,
       showValidation: false,
       error: '',
       products: [],
+      discountedPrice: 0,
     };
   }
 
@@ -88,7 +91,11 @@ class App extends Component {
       });
     } else { 
       // TODO: Show success component here
-      console.log(discounted.price);
+      this.setState({
+        showCoupon: true,
+        discountedPrice: discounted.price,
+        discountedMessage: discounted.message,
+      });
     }
   }
 
@@ -100,8 +107,9 @@ class App extends Component {
           <h1 className="App-title">Welcome to Best Buy's Automated Price-Beat System</h1>
         </header>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
-        {!this.state.showForm && !this.state.showValidation && <ProductList products={this.state.products} formData={this.state.formData} onFinish={(p) => this.onFinish(p)} />}
-        {!this.state.showForm && this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
+        {!this.state.showValidation && !this.state.showForm && !this.state.showCoupon && <ProductList products={this.state.products} formData={this.state.formData} onFinish={(p) => this.onFinish(p)} />}
+        {this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
+        {!this.state.showValidation && !this.state.showForm && this.state.showCoupon && <Coupon newPrice={this.state.discountedPrice} message={this.state.discountedMessage}/>}
       </div>
     );
   }
