@@ -8,10 +8,9 @@ class Url extends Component {
     var urlText = document.getElementById('url').value;
     if (urlText == VALID_URL) {
       // Update form state
-      console.log(this.props.formState);
       this.props.onSubmit({
-        productName: "New Apple 13\" MacBook Air (2017 Newest Version) ",
-        price: "CDN$ 1,279.00",
+        productName: "New Apple 13\" MacBook Air (2017 Newest Version)",
+        price: "1,279.00",
         competitor: "Amazon"
       });
     }
