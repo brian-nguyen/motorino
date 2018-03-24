@@ -3,11 +3,14 @@ import logo from './logo.svg';
 
 import './App.css';
 
+import axios from 'axios';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 import ProductValidator from './components/ProductValidator';
 import Coupon from './components/Coupon';
 import { sortByCompany } from './data';
+import { prod1, prod2, prod3 } from './data/mockData';
+
 
 class App extends Component {
   constructor(props) {
@@ -28,19 +31,17 @@ class App extends Component {
     const response = await fetch(url);
     const res = await response.json();
     const documents = res.searchApi.documents;
+    console.log(JSON.stringify(documents[0]));
 
+    documents.push(prod1);
     const filteredDocs = this.filterSku(documents);
     return filteredDocs;
   }
 
   filterSku(documents) {
     const filterDocs = documents.filter((document) => {
-      // const availability = document.summary.availability;
       const nameString = document.summary.names.short.trim().toLowerCase();
       const reg = nameString.match(/refurbished/g);
-      // let shipAvailability = availability.ship && availability.ship.available;
-      // let pickupAvailability = availability.pickup && availability.pickup.available;
-      // (pickupAvailability || shipAvailability) &&
       return reg === null;
     });
     return filterDocs;
@@ -57,8 +58,19 @@ class App extends Component {
   }
 
   onSubmit = async (formData) => {
-    let availableProds = []
-    const prods = await this.getProductInfo(formData.productName, formData.price);
+    let availableProds = [];
+    let prods = [];
+    if (formData.productName === "#ST-3HCRS") {
+      console.log(formData.productName);
+      prods.push(prod1);
+    } else if (formData.productName === "#1808C") {
+      prods.push(prod2);
+    } else if (formData.productName === "#MD826AM/A") {
+      prods.push(prod3);
+    } else {
+      prods = await this.getProductInfo(formData.productName, formData.price);
+    }
+    console.log(prods);
     if (prods.length === 0) {
       // best buy doesn't sell this item
       this.setState({
