@@ -24,9 +24,11 @@ class App extends Component {
   }
   
   getProductInfo = async (searchString) => {
-    const encodedSearchString = encodeURIComponent(searchString.trim())
+    const encodedSearchString = encodeURIComponent(searchString.trim());
     
     const url = `https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=${encodedSearchString}`;
+    console.log(url);
+    
     const response = await fetch(url);
     const res = await response.json();
     
@@ -46,10 +48,11 @@ class App extends Component {
   }
 
   onSubmit = async (formData) => {
-    // const results = await this.getProductInfo(formData.productName);
+    const results = await this.getProductInfo(formData.productName);
+    console.log(results);
     this.setState({
       showForm: false,
-      products: [],
+      products: results,
      });
   }
 
