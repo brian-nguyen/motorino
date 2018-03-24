@@ -75,7 +75,6 @@ class App extends Component {
         </div>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
         {!this.state.showForm && <ProductList products={this.state.products} />}
-        <ProductValidator success={false} failureType="Invalid Price"/>
 
       </div>
     );
