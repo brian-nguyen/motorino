@@ -80,16 +80,15 @@ class App extends Component {
     });
   }
 
-  onFinish = (discountedPrice) => {
-    console.log('onFinish');
-    if (discountedPrice === false) {
+  onFinish = (discounted) => {
+    if (discounted.success === false) {
       this.setState({
         showValidation: true,
-        error: 'No discount was applied'
-      }, () => console.log(this.state));
+        error: discounted.error,
+      });
     } else { 
       // TODO: Show success component here
-      console.log(discountedPrice);
+      console.log(discounted.price);
     }
   }
 
@@ -101,8 +100,8 @@ class App extends Component {
           <h1 className="App-title">Welcome to Best Buy's Automated Price-Beat System</h1>
         </header>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
-        {!this.state.showForm && <ProductList products={this.state.products} formData={this.state.formData} onFinish={(p) => this.onFinish(p)} />}
-        {this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
+        {!this.state.showForm && !this.state.showValidation && <ProductList products={this.state.products} formData={this.state.formData} onFinish={(p) => this.onFinish(p)} />}
+        {!this.state.showForm && this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
       </div>
     );
   }
