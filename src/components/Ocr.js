@@ -101,6 +101,12 @@ class Ocr extends Component {
       this.setState({imageInfo: response})
       console.log(this.state.imageInfo)
       this.findMFRandPrice()
+
+      // Update form state
+      this.props.onSubmit({
+        productName: this.state.mfr,
+        price: this.state.price
+      })
     }
   }
 
