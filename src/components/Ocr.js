@@ -17,10 +17,13 @@ class Ocr extends Component {
   findMFRandPrice = () => {
     if (this.state == null ||
       this.state.imageInfo == null ||
-      this.state.responses == null ||
-      this.state.responses[0].textAnnotations == null ||
-      this.state.responses[0].textAnnotations[0].description == null
-    )
+      this.state.imageInfo.data == null ||
+      this.state.imageInfo.data.responses == null ||
+      this.state.imageInfo.data.responses[0].textAnnotations == null ||
+      this.state.imageInfo.data.responses[0].textAnnotations[0].description == null
+    ) {
+      throw "Cannot find flyer info"
+    }
     var text = this.state.imageInfo.data.responses[0].textAnnotations[0].description.split("\n");
     var mfr;
     var price;
