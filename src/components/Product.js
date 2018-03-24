@@ -4,13 +4,13 @@ export default class Product extends React.Component {
   render() {
     return (
       <div className="card m-2">
-        <div className="card-body" style={s.container}>
-          <img src={this.props.imageUrl} style={s.img} />
+        <div style={s.container}>
+          <img src={this.props.imageUrl} className="img-thumbnail" style={s.img} />
           <div className="card-text">
-            <h5>{this.props.name}</h5>
-            <p>{this.props.description}</p>
+            <h5 className="m-2">{this.props.name}</h5>
+            <p className="card-subtitle text-muted m-3">{this.props.description}</p>
           </div>
-          <p>{this.props.price}</p>
+          <p className="text-success p-3" style={s.price}>${this.props.price}</p>
         </div>
       </div>
     );
@@ -22,7 +22,10 @@ const s = {
     display: 'flex',
   },
   img: {
+    width: 200,
+    height: 200,
+  },
+  price: {
     width: 100,
-    height: 100,
-  }
+  },
 };
