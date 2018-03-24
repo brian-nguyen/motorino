@@ -41,6 +41,7 @@ class Camera extends Component {
     
         // Get OCR data
         canvas.toBlob((blob) => this.props.getImageInformation(blob));
+        this.setState({showVideo: false});
       });
   }
 
