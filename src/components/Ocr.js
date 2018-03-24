@@ -11,6 +11,7 @@ class Ocr extends Component {
       price: null,
       mfr: null,
       skuId: null,
+      showUploadInput: true,
     };
   }
 
@@ -108,16 +109,22 @@ class Ocr extends Component {
     this.getImageInformation(file);
   }
 
+  cameraActive = () => {
+    this.setState({ showUploadInput: false });
+  }
+
   render() {
     return (
       <div className="Ocr">
-        <input ref="file" type="file" name="file" 
-                              className="upload-file" 
-                              id="file"
-                              onChange={this.chooseImage}
-                              encType="multipart/form-data" 
-                              required/>
-        <Camera getImageInformation={this.getImageInformation}/>
+        {this.state.showUploadInput
+        && <input
+            ref="file" type="file" name="file" 
+            className="upload-file" 
+            id="file"
+            onChange={this.chooseImage}
+            encType="multipart/form-data" 
+            required/>}
+        <Camera getImageInformation={this.getImageInformation} isActive={this.cameraActive}/>
       </div>
     );
   }

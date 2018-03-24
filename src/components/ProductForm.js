@@ -19,7 +19,7 @@ export default class ProductForm extends React.Component {
       <div className="d-flex flex-column">
         <div className="m-3 card w-50" style={{ alignSelf: 'center' }}>
           <div className="card-body">
-            <p className="card-text">Upload photo of your product</p>
+            <div className="alert alert-success" role="alert">Provide proof by either uploading a photo, taking a photo, or providng a link to the product page</div>
             <Ocr />
           </div>
         </div>

@@ -5,8 +5,13 @@ class Camera extends Component {
     showVideo: false,
     showCanvas: false
   };
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
 
   enableCamera = () => {
+    this.props.isActive();
     this.setState(
       {showVideo: true},
       () => { 
@@ -41,9 +46,9 @@ class Camera extends Component {
 
   render() {
     return (
-      <div className="Camera">
+      <div className="Camera d-flex flex-column align-items-center">
         {this.state.showVideo && <video id="video" width="640" height="480" autoPlay></video>}
-        {!this.state.showVideo &&<button id="enable" onClick={this.enableCamera}>Enable Camera</button>}
+        {!this.state.showVideo && <button id="enable" onClick={this.enableCamera} className="btn btn-dark w-25 m-3">Enable Camera</button>}
         {this.state.showVideo && <button id="snap" onClick={this.takePicture}>Take Picture</button>}
         {this.state.showCanvas && <canvas id="canvas" width="640" height="480"></canvas>}
       </div>
