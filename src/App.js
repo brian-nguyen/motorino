@@ -5,6 +5,7 @@ import './App.css';
 
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
+import ProductValidator from './components/ProductValidator';
 
 class App extends Component {
   constructor(props) {
@@ -55,9 +56,9 @@ class App extends Component {
         <div className="alert alert-primary" role="alert">
           Input an image
         </div>
-        
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
         {!this.state.showForm && <ProductList products={this.state.products} />}
+
       </div>
     );
   }
