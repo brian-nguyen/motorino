@@ -6,6 +6,12 @@ import {getSKUS} from './product-resolver';
 import ProductForm from './components/ProductForm';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showForm: true,
+    };
+  }
 
   componentDidMount() {
     getSKUS();
@@ -28,7 +34,7 @@ class App extends Component {
           </div>
         </div>
         
-        <ProductForm />
+        {this.state.showForm && <ProductForm />}
       </div>
     );
   }
