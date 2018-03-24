@@ -5,6 +5,8 @@ import './App.css';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
+const bbdb = require('./bbdb.json');
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,13 @@ class App extends Component {
     };
   }
 
+  //search BBDB finds and returns a list of objects with a SKU
+  //field SKU is a number
+  //other fields are strings
+  searchBBDB(sku) {
+    return bbdb.filter(field => field.SKU === sku);
+  }
+  
   getProductInfo = async (searchString) => {
     const encodedSearchString = encodeURIComponent(searchString.trim())
     
