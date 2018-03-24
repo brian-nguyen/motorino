@@ -16,44 +16,19 @@ var comp = "Best Buy Canada";
 class App extends Component {
   constructor(props) {
     super(props);
-    const results = sortByCompany(SKU);
-    console.log(results);
-    const match = results.find(e => e["Retailer"] == "Amazon");
-    console.log(match["Price"]);
-    const price = parseFloat(match["Price"].replace("$", ""));
-    console.log(price);
-    if (100.99 <= price) {
-      console.log('price match');
-    }
-
-
     this.state = {
       showForm: true,
       products: [],
     };
   }
 
-  checkForCompetitor( company, competitors){
-      var found = competitors.find( (e) => {return e["Retailer"] == company});
-      if( found == undefined ){
-        return false;
-      }
-      return found["Price"];
-  }
-
-  removeDollar(field){
-    var temp =  parseFloat(field.replace("$",""));
-    console.log(temp);
-    return temp;
-
-  }
-
-  checkPrice( priceFlyer, priceComp){
-    console.log(priceFlyer);
-    if(parseFloat(priceFlyer) <= this.removeDollar(priceComp)){ //price matched
-      return this.priceReduction(priceComp, priceFlyer);
-    }
-    return false; //price not matched
+  checkForCompetitor( company, competitors, bb_price){ // return a price-matched price else false if not found
+      const match = competitors.find( (e) => {return e["Retailer"] == company});
+      if(!match) return false;
+      const price = parseFloat(match["Price"].replace("$",""));
+      if(bb_price > price)
+        return this.priceReduction(bb_price, price);
+      return false;
   }
 
   priceReduction( orig, match){
