@@ -46,10 +46,10 @@ class App extends Component {
   }
 
   onSubmit = async (formData) => {
-    const results = await this.getProductInfo(formData.productName);
+    // const results = await this.getProductInfo(formData.productName);
     this.setState({
       showForm: false,
-      products: results,
+      products: [],
      });
   }
 
