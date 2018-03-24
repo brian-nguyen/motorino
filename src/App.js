@@ -5,11 +5,16 @@ import './App.css';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
 const bbdb = require('./bbdb.json');
+var SKU = 10248353; // used for testing
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.sortByDate(SKU);
     this.state = {
       showForm: true,
       products: [],
@@ -23,6 +28,31 @@ class App extends Component {
     return bbdb.filter(field => field.SKU === sku);
   }
   
+  dateFromObject(obj){
+    var date = "Crawl Date"
+      var mydate = new Date(
+        '20'+obj[date].substring(7,9),
+        MONTH_NAMES.indexOf(obj[date].substring(3,6)),
+        obj[date].substring(0,2),
+      );
+      
+    return mydate;
+  }
+
+  sortByDate(sku){
+    let searched = this.searchBBDB(sku);
+    searched.sort( (a,b)=> {return this.dateFromObject(b) - this.dateFromObject(a)});
+    return searched;
+  }
+
+  // sortByCompany(sku){
+  //   let mostrecent = [];
+  //   let sorted = this.sortByDate(sku);
+  //   for(var key in sorted){
+
+  //   }
+  // }
+
   getProductInfo = async (searchString) => {
     const encodedSearchString = encodeURIComponent(searchString.trim())
     
