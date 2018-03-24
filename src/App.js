@@ -7,10 +7,6 @@ import ProductForm from './components/ProductForm';
 
 class App extends Component {
 
-  componentDidMount() {
-    let products = getProductInfo();
-  }
-
   render() {
     return (
       <div className="App">

@@ -1,6 +1,7 @@
-export async function getProductInfo() {
+export async function getProductInfo(searchString) {
+    const encodedSearchString = encodeURIComponent(searchString.trim())
     
-    const url = 'https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=i5%204460';
+    const url = `https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=${encodedSearchString}`;
     var res = await fetch(url);
     res = await res.json();
     console.log(res);
