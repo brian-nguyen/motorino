@@ -11,7 +11,7 @@ export default class ProductForm extends React.Component {
     this.state = {
       productName: '',
       price: '',
-      competitor: 'Amazon',
+      competitor: '',
     };
   }
 
@@ -49,6 +49,7 @@ export default class ProductForm extends React.Component {
             <div className="form-group">
             <p className="text-left">Competitor</p>
               <select value={this.state.competitor} onChange={(e) => this.setState({ competitor: e.target.value })} className="form-control">
+              <option></option>
                 {
                   COMPANY_NAMES.map((e) => <option>{e}</option>)
                 }

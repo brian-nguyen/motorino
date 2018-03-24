@@ -58,6 +58,15 @@ class App extends Component {
   }
 
   onSubmit = async (formData) => {
+    if (
+      !formData.productName
+      || !formData.price
+      || !formData.competitor
+    ) {
+      console.log('fields missing');
+      return;
+    }
+    
     let availableProds = []
     const prods = await this.getProductInfo(formData.productName, formData.price);
     if (prods.length === 0) {
