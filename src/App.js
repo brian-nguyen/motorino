@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-var bbdb = require('./bbdb.json');
+const bbdb = require('./bbdb.json');
 var SKU = 10248353
 
 class App extends Component {
@@ -10,13 +10,12 @@ class App extends Component {
     super()
   }
 
-//search BBDB finds and returns a list of objects with a SKU
-//field SKU is a number
-//other fields are strings
-searchBBDB(bbdb, sku){
-  var list = bbdb.filter(field => field.SKU === sku)
-  return list;
-}
+  //search BBDB finds and returns a list of objects with a SKU
+  //field SKU is a number
+  //other fields are strings
+  searchBBDB(bbdb, sku) {
+    return bbdb.filter(field => field.SKU === sku);
+  }
 
   render() {
     return (
