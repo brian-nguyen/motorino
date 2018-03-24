@@ -5,14 +5,9 @@ import './App.css';
 
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
-<<<<<<< HEAD
+import ProductValidator from './components/ProductValidator';
 import Camera from './components/Camera';
 import Ocr from './components/Ocr';
-
-const bbdb = require('./bbdb.json');
-=======
-import ProductValidator from './components/ProductValidator';
->>>>>>> d2abe24bf87067c699323cd14921c8fc3aaf1a1c
 
 class App extends Component {
   constructor(props) {
