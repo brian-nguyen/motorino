@@ -30,12 +30,9 @@ export function sortByCompany(sku) {
 }
 
 export function checkForCompetitor( company, competitors, bb_price){ // return a price-matched price else false if not found
-  const match = competitors.find( (e) => {return e["Retailer"] === company});
-  console.log(company);
-  console.log(match);
-  if(!match) return false;
+  const match = competitors.find( (e) => e["Retailer"] === company);
+  if (!match) return false;
   const price = parseFloat(match["Price"].replace("$",""));
-  if(bb_price > price)
-    return price - (bb_price - price)*0.1;
+  if (bb_price > price) return price - (bb_price - price)*0.1;
   return false;
 }

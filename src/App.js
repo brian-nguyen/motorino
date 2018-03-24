@@ -81,16 +81,16 @@ class App extends Component {
   }
 
   onFinish = (discountedPrice) => {
+    console.log('onFinish');
     if (discountedPrice === false) {
       this.setState({
         showValidation: true,
         error: 'No discount was applied'
-      });
-      return;
+      }, () => console.log(this.state));
+    } else { 
+      // TODO: Show success component here
+      console.log(discountedPrice);
     }
-
-    // TODO: Show success component here
-    console.log(discountedPrice);
   }
 
   render() {
@@ -102,7 +102,7 @@ class App extends Component {
         </header>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
         {!this.state.showForm && <ProductList products={this.state.products} formData={this.state.formData} onFinish={(p) => this.onFinish(p)} />}
-        {!this.state.showForm && this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
+        {this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}
       </div>
     );
   }
