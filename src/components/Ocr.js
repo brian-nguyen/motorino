@@ -15,6 +15,12 @@ class Ocr extends Component {
 
   // findMFRandPrice sets the state's mfr and price to those found in the image
   findMFRandPrice = () => {
+    if (this.state == null ||
+      this.state.imageInfo == null ||
+      this.state.responses == null ||
+      this.state.responses[0].textAnnotations == null ||
+      this.state.responses[0].textAnnotations[0].description == null
+    )
     var text = this.state.imageInfo.data.responses[0].textAnnotations[0].description.split("\n");
     var mfr;
     var price;
