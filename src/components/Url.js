@@ -9,7 +9,7 @@ class Url extends Component {
     if (urlText == VALID_URL) {
       // Update form state
       this.props.onSubmit({
-        productName: "New Apple 13\" MacBook Air (2017 Newest Version)",
+        productName: "Apple 13\" MacBook Air",
         price: "1,279.00",
         competitor: "Amazon"
       });
