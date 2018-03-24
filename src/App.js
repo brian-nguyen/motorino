@@ -17,6 +17,11 @@ class App extends Component {
     getSKUS();
   }
 
+  onSubmit = (formData) => {
+    console.log(formData);
+    this.setState({ showForm: false });
+  }
+
   render() {
     return (
       <div className="App">
@@ -34,7 +39,7 @@ class App extends Component {
           </div>
         </div>
         
-        {this.state.showForm && <ProductForm />}
+        {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
       </div>
     );
   }

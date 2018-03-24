@@ -11,10 +11,6 @@ export default class ProductForm extends React.Component {
     };
   }
 
-  handleSubmit = () => {
-    console.log(this.state);
-  }
-
   render() {
     return (
       <form className="m-3" onSubmit={(e) => e.preventDefault()}>
@@ -35,7 +31,7 @@ export default class ProductForm extends React.Component {
             <option>Staples</option>
           </select>
         </div>
-        <button onClick={this.handleSubmit} type="button" className="btn btn-outline-dark">Submit</button>
+        <button onClick={() => this.props.onSubmit(this.state)} type="button" className="btn btn-outline-dark">Submit</button>
       </form>
     );
   }
