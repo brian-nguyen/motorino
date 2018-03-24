@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {getSKUS} from './product-resolver';
+import {getProductInfo} from './product-resolver';
 
 import ProductForm from './components/ProductForm';
 
 class App extends Component {
 
   componentDidMount() {
-    getSKUS();
+    let products = getProductInfo();
   }
 
   render() {
