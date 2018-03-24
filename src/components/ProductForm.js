@@ -13,26 +13,46 @@ export default class ProductForm extends React.Component {
 
   render() {
     return (
-      <form className="m-3" onSubmit={(e) => e.preventDefault()}>
-        <div className="form-group">
-          Product Name
-          <input value={this.state.productName} onChange={(e) => this.setState({ productName: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter product name" />
+      <div className="d-flex flex-column">
+        <div className="m-3 card w-50" style={{ alignSelf: 'center' }}>
+          <div className="card-body">
+            <p className="card-text">Some box for image taking</p>
+          </div>
         </div>
-        <div className="form-group">
-          Price
-          <input value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} id="price" type="text" className="form-control" placeholder="Enter price" />
+        <div className="card w-50" style={{ alignSelf: 'center' }}>
+          <form className="m-3" onSubmit={(e) => e.preventDefault()}>
+            <div className="form-group">
+            <p className="text-left">Product Name</p>
+              <input value={this.state.productName} onChange={(e) => this.setState({ productName: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter product name" />
+            </div>
+            <div className="form-group">
+              <p className="text-left">Price</p>
+              <input value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} id="price" type="text" className="form-control" placeholder="Enter price" />
+            </div>
+            <div className="form-group">
+            <p className="text-left">Competitor</p>
+              <select value={this.state.competitor} onChange={(e) => this.setState({ competitor: e.target.value })} className="form-control">
+                <option>Amazon</option>
+                <option>Bed, Bath, and Beyond</option>
+                <option>Best Buy Canada</option>              
+                <option>Canadian Tire</option>
+                <option>Costco Canada</option>
+                <option>London Drugs</option>
+                <option>Lusso Baby</option>
+                <option>Sears Canada</option>
+                <option>Shopca</option>
+                <option>Staples</option>
+                <option>The Bay</option>
+                <option>The Brick</option>
+                <option>Toys R Us Canada</option>
+                <option>Walmart Canada</option>
+                <option>Well Canada</option>
+              </select>
+            </div>
+            <button onClick={() => this.props.onSubmit(this.state)} type="button" className="btn btn-outline-dark">Submit</button>
+          </form>
         </div>
-        <div className="form-group">
-          Competitor
-          <select value={this.state.competitor} onChange={(e) => this.setState({ competitor: e.target.value })} className="form-control">
-            <option>Amazon</option>
-            <option>Toys R Us</option>
-            <option>Walmart</option>
-            <option>Staples</option>
-          </select>
-        </div>
-        <button onClick={() => this.props.onSubmit(this.state)} type="button" className="btn btn-outline-dark">Submit</button>
-      </form>
+      </div>
     );
   }
 }

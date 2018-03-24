@@ -52,19 +52,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App d-flex flex-column">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Motorino</h1>
         </header>
         <div className="alert alert-primary" role="alert">
           Input an image
-        </div>
-
-        <div className="m-3 card">
-          <div className="card-body">
-            <p className="card-text">Some box for image taking</p>
-          </div>
         </div>
         
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
