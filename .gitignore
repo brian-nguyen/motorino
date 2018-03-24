@@ -21,4 +21,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # secret keys
+src/components/API_KEY.js
 src/API_KEY.js
