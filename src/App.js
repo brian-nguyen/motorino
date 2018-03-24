@@ -22,19 +22,6 @@ class App extends Component {
     };
   }
 
-  checkForCompetitor( company, competitors, bb_price){ // return a price-matched price else false if not found
-      const match = competitors.find( (e) => {return e["Retailer"] == company});
-      if(!match) return false;
-      const price = parseFloat(match["Price"].replace("$",""));
-      if(bb_price > price)
-        return this.priceReduction(bb_price, price);
-      return false;
-  }
-
-  priceReduction( orig, match){
-    return match - (orig-match)*0.1;
-  }
-
   getProductInfo = async (searchString) => {
     const encodedSearchString = encodeURIComponent(searchString.trim());
     const url = `https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=${encodedSearchString}`;
@@ -62,6 +49,7 @@ class App extends Component {
     this.setState({
       showForm: false,
       products: results,
+      formData,
      });
   }
 
@@ -82,7 +70,7 @@ class App extends Component {
           </div>
         </div>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
-        {!this.state.showForm && <ProductList products={this.state.products} />}
+        {!this.state.showForm && <ProductList products={this.state.products} formData={this.state.formData} />}
 
       </div>
     );
