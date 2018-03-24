@@ -16,11 +16,11 @@ export default class ProductForm extends React.Component {
       <form className="m-3" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           Product Name
-          <input value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter email" />
+          <input value={this.state.productName} onChange={(e) => this.setState({ productName: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter product name" />
         </div>
         <div className="form-group">
           Price
-          <input value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} id="price" type="text" className="form-control" placeholder="Enter email" />
+          <input value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} id="price" type="text" className="form-control" placeholder="Enter price" />
         </div>
         <div className="form-group">
           Competitor
