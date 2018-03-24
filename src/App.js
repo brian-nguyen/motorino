@@ -44,7 +44,6 @@ class App extends Component {
 
   onSubmit = async (formData) => {
     const results = await this.getProductInfo(formData.productName);
-    console.log(results);
     this.setState({
       showForm: false,
       products: results,
