@@ -29,10 +29,21 @@ export function sortByCompany(sku) {
   return _.uniqBy(sorted, (x) => x["Retailer"]);
 }
 
-export function checkForCompetitor( company, competitors, bb_price){ // return a price-matched price else false if not found
-  const match = competitors.find( (e) => e["Retailer"] === company);
-  if (!match) return false;
+export function checkForCompetitor(company, competitors, bb_price) {
+  const match = competitors.find((e) => e["Retailer"] === company);
+  if (!match) {
+    return { success: false, error: 'No competitor data found' };
+  }
+
   const price = parseFloat(match["Price"].replace("$",""));
-  if (bb_price > price) return price - (bb_price - price)*0.1;
-  return false;
+  if (bb_price > price) {
+    const difference = bb_price - price;
+    return {
+      success: true,
+      price: price - (difference * 0.1),
+      message: `You saved $${Math.floor((difference * 0.1) * 100) / 100}!`
+    };
+  }
+
+  return { success: false, error: 'Prices are the same or we already have the best price' };
 }
