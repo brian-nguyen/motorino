@@ -4,6 +4,7 @@ import './App.css';
 import {getSKUS} from './product-resolver';
 
 import ProductForm from './components/ProductForm';
+import ProductList from './components/ProductList';
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends Component {
         </div>
         
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
+        {!this.state.showForm && <ProductList />}
       </div>
     );
   }
