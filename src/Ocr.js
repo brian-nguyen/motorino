@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { API_KEY } from './API_KEY.js';
+import Camera from './Camera';
 
 class Ocr extends Component {
   constructor(props) {
@@ -38,18 +39,18 @@ class Ocr extends Component {
 
     this.setState({
       mfr: mfr,
-      price: price
+      price: price,
     })
 
-    console.log(this.state.mfr)
-    console.log(this.state.price)
+    console.log(this.state.mfr);
+    console.log(this.state.price);
   }
 
-  getImageInformation = async (evt) => {
+  getImageInformation = async(file) => {
     var reader = new FileReader();
-    var file = evt.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = async () => {
+      // Filter out unneeded information
       const content = reader.result.replace('data:image/png;base64,','');
       const request = {
         "requests": [
@@ -72,15 +73,21 @@ class Ocr extends Component {
     }
   }
 
+  chooseImage = async(evt) => {
+    var file = evt.target.files[0];
+    this.getImageInformation(file);
+  }
+
   render() {
     return (
       <div className="Ocr">
         <input ref="file" type="file" name="file" 
                               className="upload-file" 
                               id="file"
-                              onChange={this.getImageInformation}
+                              onChange={this.chooseImage}
                               encType="multipart/form-data" 
                               required/>
+        <Camera getImageInformation={this.getImageInformation}/>
       </div>
     );
   }
