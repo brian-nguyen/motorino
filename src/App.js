@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {getSKUS} from './product-resolver';
+import {getProductInfo} from './product-resolver';
 
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
@@ -12,10 +12,6 @@ class App extends Component {
     this.state = {
       showForm: true,
     };
-  }
-
-  componentDidMount() {
-    getSKUS();
   }
 
   onSubmit = (formData) => {
