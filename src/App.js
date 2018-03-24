@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import _ from 'lodash'
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
 const bbdb = require('./bbdb.json');
+var SKU = 10248353; // used for testing
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.sortByCompany(SKU);
     this.state = {
       showForm: true,
       products: [],
@@ -23,7 +28,32 @@ class App extends Component {
     return bbdb.filter(field => field.SKU === sku);
   }
   
-  getProductInfo = async (searchString, price) => {
+  dateFromObject(obj){
+    var date = "Crawl Date"
+      var mydate = new Date(
+        '20'+obj[date].substring(7,9),
+        MONTH_NAMES.indexOf(obj[date].substring(3,6)),
+        obj[date].substring(0,2),
+      );
+      
+    return mydate;
+  }
+
+  sortByDate(sku){
+    let searched = this.searchBBDB(sku);
+    searched.sort( (a,b)=> {return this.dateFromObject(b) - this.dateFromObject(a)});
+    return searched;
+  }
+
+  sortByCompany(sku){
+    let sorted = this.sortByDate(sku);
+    console.log(sorted);
+    let mostrecent = _.uniqBy(sorted,(x)=>{return x["Retailer"]});
+    console.log(mostrecent);
+    return mostrecent;
+  }
+
+  getProductInfo = async (searchString) => {
     const encodedSearchString = encodeURIComponent(searchString.trim());
     const url = `https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search?query=${encodedSearchString}`;
     const response = await fetch(url);
