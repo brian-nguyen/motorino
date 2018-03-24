@@ -86,7 +86,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Best Buy's Automated Price-Beat System</h1>
         </header>
-        <div className="alert alert-primary" role="alert">STEP</div>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
         {!this.state.showForm && <ProductList products={this.state.products} formData={this.state.formData} />}
         {!this.state.showForm && this.state.showValidation && <ProductValidator success={false} failureType={this.state.error} />}

@@ -18,6 +18,9 @@ export default class ProductForm extends React.Component {
     return (
       <div className="d-flex flex-column">
         <div className="m-3 card w-50" style={{ alignSelf: 'center' }}>
+          <button type="button" onClick={() => window.location.reload()} className="close ml-2 mt-2" style={{ alignSelf: 'flex-start' }}>
+            <span aria-hidden="true">&times;</span>
+          </button>
           <div className="card-body">
             <div className="alert alert-success" role="alert">Provide proof by either uploading a photo, taking a photo, or providng a link to the product page</div>
             <Ocr />
