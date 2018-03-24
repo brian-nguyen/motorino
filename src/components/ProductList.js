@@ -1,13 +1,22 @@
 import React from 'react';
 import Product from './Product';
 
+import { sortByCompany } from '../data';
+
 export default class ProductList extends React.Component {
+  onProductClick(e, p) {
+    console.log(sortByCompany(p.summary.skuId));
+  }
+
   render() {
-    const products = [1, 2, 3, 4, 5];
     return (
       <div style={s.listContainer}>
-        {
-          this.props.products.map((p, idx) => <Product key={idx} imageUrl={p.summary.media.primaryImage.url} name={p.summary.names.short} description={p.summary.descriptions.short} price={p.priceBlock.itemPrice.currentPrice} />)
+        {this.props.products.map((p, idx) => 
+          <Product
+            key={idx}
+            product={p}
+            onClick={(e, p) => this.onProductClick(e, p)}
+          />)
         }
       </div>
     );
