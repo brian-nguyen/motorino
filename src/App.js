@@ -68,8 +68,8 @@ class App extends Component {
       return;
     }
     
-    let availableProds = []
-    const prods = await this.getProductInfo(formData.productName, formData.price);
+    let availableProds = [];
+    let prods = [];
     if (formData.productName === "#ST-3HCRS") {
       console.log(formData.productName);
       prods.push(prod1);
