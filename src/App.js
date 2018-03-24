@@ -3,22 +3,21 @@ import logo from './logo.svg';
 import './App.css';
 
 var bbdb = require('./bbdb.json');
-var SKU = 10248353;
-//search BBDB finds and returns a list of objects with a SKU
-function searchBBDB(bbdb, sku){
-  var list = [];
-  for(var key in bbdb){
-    if(bbdb[key].SKU === sku){
-      console.log(bbdb[key]);
-      list.push(bbdb[key]);
-    }
+var SKU = 10248353
+
+class App extends Component {
+  constructor() {
+    super()
   }
+
+//search BBDB finds and returns a list of objects with a SKU
+//field SKU is a number
+//other fields are strings
+searchBBDB(bbdb, sku){
+  var list = bbdb.filter(field => field.SKU === sku)
   return list;
 }
 
-searchBBDB(bbdb,SKU);
-
-class App extends Component {
   render() {
     return (
       <div className="App">
