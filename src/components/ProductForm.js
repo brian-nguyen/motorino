@@ -2,6 +2,7 @@ import React from 'react';
 import { COMPANY_NAMES } from '../data'
 
 import Ocr from './Ocr';
+import Url from './Url';
 
 export default class ProductForm extends React.Component {
   constructor(props) {
@@ -14,6 +15,14 @@ export default class ProductForm extends React.Component {
     };
   }
 
+  fillForm = (vals) => {
+    this.setState({
+      productName: vals.productName,
+      price: vals.price,
+      competitor: vals.competitor
+    })
+  }
+
   render() {
     return (
       <div className="d-flex flex-column">
@@ -22,14 +31,15 @@ export default class ProductForm extends React.Component {
             <span aria-hidden="true">&times;</span>
           </button>
           <div className="card-body">
-            <div className="alert alert-success" role="alert">Provide proof by either uploading a photo, taking a photo, or providng a link to the product page</div>
-            <Ocr />
+            <div className="alert alert-success" role="alert">Provide proof by either uploading a photo, taking a photo, or providing a link to the product page</div>
+            <Ocr onSubmit={(vals) => this.fillForm(vals)}/>
+            <Url onSubmit={(vals) => this.fillForm(vals)}/>
           </div>
         </div>
         <div className="card w-50" style={{ alignSelf: 'center' }}>
           <form className="m-3" onSubmit={(e) => e.preventDefault()}>
             <div className="form-group">
-            <p className="text-left">Product Name</p>
+            <p className="text-left">Product Name or MFR</p>
               <input value={this.state.productName} onChange={(e) => this.setState({ productName: e.target.value })} id="email" type="text" className="form-control" placeholder="Enter product name" />
             </div>
             <div className="form-group">
