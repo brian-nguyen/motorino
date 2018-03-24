@@ -4,6 +4,8 @@ import './App.css';
 
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
+import Camera from './components/Camera';
+import Ocr from './components/Ocr';
 
 const bbdb = require('./bbdb.json');
 
@@ -64,6 +66,7 @@ class App extends Component {
         <div className="m-3 card">
           <div className="card-body">
             <p className="card-text">Some box for image taking</p>
+            <Ocr/>
           </div>
         </div>
         
