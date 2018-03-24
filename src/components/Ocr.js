@@ -15,25 +15,6 @@ class Ocr extends Component {
     };
   }
 
-  // fetchSKU using mfr
-  fetchSKU = () => {
-    axios.get('https://bizhacks.bbycastatic.ca/mobile-si/si/v3/products/search', {
-      params: {
-        query: this.state.mfr,
-        lang: "en",
-      }
-    })
-    .then( (response) => {
-      var sku = response.data.searchApi.documents[0].skuId
-      this.setState({skuId: sku})
-      console.log(this.state.skuId);
-      // console.log(response.data.searchApi.documents[0].skuId)
-    })
-    .catch( (error) => {
-      console.log("Cannot find product");
-    });
-  }
-
   // findMFRandPrice sets the state's mfr and price to those found in the image
   findMFRandPrice = () => {
     if (this.state == null ||
@@ -74,7 +55,7 @@ class Ocr extends Component {
 
     console.log(this.state.mfr);
     console.log(this.state.price);
-    this.fetchSKU();
+    //this.fetchSKU();
   }
 
   getImageInformation = async(file) => {

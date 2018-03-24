@@ -10,8 +10,12 @@ export default class ProductList extends React.Component {
   }
 
   onProductClick = (e, p) => {
+    console.log(p);
     const results = sortByCompany(p.summary.skuId);
+    console.log(results);
     const discounted = checkForCompetitor(this.props.formData.competitor, results, p.priceBlock.itemPrice.currentPrice);
+    console.log("discounted");
+    console.log(discounted);
     this.props.onFinish(discounted);
   }
 
