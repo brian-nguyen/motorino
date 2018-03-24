@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {COMPANY_NAMES} from '../data'
 export default class ProductForm extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +27,10 @@ export default class ProductForm extends React.Component {
             <div className="form-group">
             <p className="text-left">Competitor</p>
               <select value={this.state.competitor} onChange={(e) => this.setState({ competitor: e.target.value })} className="form-control">
-                <option>Amazon</option>
+                {
+                  COMPANY_NAMES.map( (e) => <option>{e}</option>)
+                }
+                {/* <option>COMPANY_NAMES</option>
                 <option>Bed, Bath, and Beyond</option>
                 <option>Best Buy Canada</option>              
                 <option>Canadian Tire</option>
@@ -41,7 +44,7 @@ export default class ProductForm extends React.Component {
                 <option>The Brick</option>
                 <option>Toys R Us Canada</option>
                 <option>Walmart Canada</option>
-                <option>Well Canada</option>
+                <option>Well Canada</option> */}
               </select>
             </div>
             <button onClick={() => this.props.onSubmit(this.state)} type="button" className="btn btn-outline-dark">Submit</button>

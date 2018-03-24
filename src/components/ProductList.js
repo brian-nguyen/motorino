@@ -1,11 +1,19 @@
 import React from 'react';
 import Product from './Product';
 
-import { sortByCompany } from '../data';
+import { sortByCompany, checkForCompetitor } from '../data';
 
 export default class ProductList extends React.Component {
-  onProductClick(e, p) {
-    console.log(sortByCompany(p.summary.skuId));
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
+
+  onProductClick = (e, p) => {
+    const results = sortByCompany(p.summary.skuId);
+    console.log(results);
+    const discounted = checkForCompetitor(this.props.formData.competitor, results, p.priceBlock.itemPrice.currentPrice);
+    console.log(discounted);
   }
 
   render() {

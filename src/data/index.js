@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 const bbdb = require('./bbdb.json');
+export const COMPANY_NAMES = ["Amazon", "Bed Bath and Beyond Canada", "Best Buy Canada", "Canadian Tire", "Costco Canada", "London Drugs", "Lussobaby", "Sears Canada", "Shopca", "Staples Canada", "The Bay", "The Brick", "Toys R Us Canada", "Walmart Canada", "Well Canada"]
 const MONTH_NAMES = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
@@ -26,4 +27,15 @@ export function sortByDate(sku) {
 export function sortByCompany(sku) {
   let sorted = sortByDate(sku);
   return _.uniqBy(sorted, (x) => x["Retailer"]);
+}
+
+export function checkForCompetitor( company, competitors, bb_price){ // return a price-matched price else false if not found
+  const match = competitors.find( (e) => {return e["Retailer"] == company});
+  console.log(company);
+  console.log(match);
+  if(!match) return false;
+  const price = parseFloat(match["Price"].replace("$",""));
+  if(bb_price > price)
+    return price - (bb_price - price)*0.1;
+  return false;
 }

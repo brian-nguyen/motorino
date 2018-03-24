@@ -8,6 +8,10 @@ import ProductList from './components/ProductList';
 import ProductValidator from './components/ProductValidator';
 import Camera from './components/Camera';
 import Ocr from './components/Ocr';
+import { sortByCompany } from './data';
+
+var SKU = 10243865;
+var comp = "Best Buy Canada";
 
 class App extends Component {
   constructor(props) {
@@ -70,10 +74,8 @@ class App extends Component {
     }
     this.setState({
       showForm: false,
-      products: prods,
-      showValidation: showValidation,
-      error: error,
-      valid: false,
+      products: results,
+      formData,
      });
   }
 
@@ -94,8 +96,7 @@ class App extends Component {
           </div>
         </div>
         {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
-        {!this.state.showForm && !this.state.showValidation && <ProductList products={this.state.products} />}
-        {!this.state.showForm && this.state.showValidation && <ProductValidator success={this.state.valid} failureType={this.state.error}/>}
+        {!this.state.showForm && <ProductList products={this.state.products} formData={this.state.formData} />}
       </div>
     );
   }
