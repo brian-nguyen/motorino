@@ -6,6 +6,17 @@ import {getProductInfo} from './product-resolver';
 import ProductForm from './components/ProductForm';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showForm: true,
+    };
+  }
+
+  onSubmit = (formData) => {
+    console.log(formData);
+    this.setState({ showForm: false });
+  }
 
   render() {
     return (
@@ -24,7 +35,7 @@ class App extends Component {
           </div>
         </div>
         
-        <ProductForm />
+        {this.state.showForm && <ProductForm onSubmit={(data) => this.onSubmit(data)} />}
       </div>
     );
   }
