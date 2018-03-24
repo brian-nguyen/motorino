@@ -7,14 +7,49 @@ class Ocr extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: null,
+      imageInfo: null,
+      price: null,
+      mfr: null,
     };
+  }
+
+  // findMFRandPrice sets the state's mfr and price to those found in the image
+  findMFRandPrice = () => {
+    var text = this.state.imageInfo.data.responses[0].textAnnotations[0].description.split("\n");
+    var mfr;
+    var price;
+    for (var index = 0; index < text.length; index++) {
+      var curr = text[index]
+      if (curr.startsWith("#")) {
+        mfr = curr.split(" ")[0]
+      }
+
+      if (curr.endsWith("99") && curr.length == 2 && price == null) {
+        // 99 cents is separated from dollars
+        price = text[index-1] + "." + curr.substring(text[index].length-2)
+      } else if (curr.endsWith("99") && price == null) {
+        // 99 cents is a part of the dollars
+        price = text[index].substring(0, text[index].length-2) + "." + text[index].substring(text[index].length-2)
+      }
+    }
+
+    if (mfr == null || price == null) {
+      throw "Error parsing " + (mfr == null ? "mfr" : "price");
+    }
+
+    this.setState({
+      mfr: mfr,
+      price: price,
+    })
+
+    console.log(this.state.mfr);
+    console.log(this.state.price);
   }
 
   getImageInformation = async(file) => {
     var reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = async function() {
+    reader.onload = async () => {
       // Filter out unneeded information
       const content = reader.result.replace('data:image/png;base64,','');
       const request = {
@@ -32,6 +67,9 @@ class Ocr extends Component {
         ]
       }
       let response = await axios.post('https://vision.googleapis.com/v1/images:annotate?key=' + API_KEY, request);
+      this.setState({imageInfo: response})
+      console.log(this.state.imageInfo)
+      this.findMFRandPrice()
     }
   }
 
